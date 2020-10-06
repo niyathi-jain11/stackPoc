@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dms
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 5433:5433
+
+  stack:
+    image: stack
+    restart: on-failure
+    depends_on:
+      - postgresql
+    ports:
+      - 8090:8090
+    environment:
+      - DATABASE_HOST=postgresql
+      - DATABASE_USER=postgress
+      - DATABASE_PASSWORD=postgress
+      - DATABASE_NAME=employee
+      - DATABASE_PORT=3306
+
